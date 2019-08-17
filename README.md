@@ -1,2 +1,2 @@
 # BMFontToSpriteFont
-AngelCode BMFont Loader Utility for MonoGame/FNA/Xneko
+AngelCode BMFont Loader Utility for MonoGame/FNA
