@@ -6,9 +6,9 @@ using Cyotek.Drawing.BitmapFont;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BMFontToSpriteFont
+namespace SpriteFontPlus
 {
-	public class BMFontLoader
+	internal class BMFontLoader
 	{
 		public static SpriteFont LoadXml(string xml, Func<string, Texture2D> textureGetter)
 		{
