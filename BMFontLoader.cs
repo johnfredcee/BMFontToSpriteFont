@@ -8,17 +8,49 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SpriteFontPlus
 {
-	internal class BMFontLoader
+#if BF2SF_INTERNAL
+	internal
+#else
+	public
+#endif
+	class TextureWithOffset
 	{
-		public static SpriteFont LoadXml(string xml, Func<string, Texture2D> textureGetter)
-		{
-			var data = new BitmapFont();
-			data.LoadXml(xml);
+		public Texture2D Texture { get; set; }
+		public Point Offset { get; set; }
 
+		public TextureWithOffset(Texture2D texture)
+		{
+			if (texture == null)
+			{
+				throw new ArgumentNullException("texture");
+			}
+
+			Texture = texture;
+		}
+
+		public TextureWithOffset(Texture2D texture, Point offset): this(texture)
+		{
+			Offset = offset;
+		}
+	}
+
+#if BF2SF_INTERNAL
+	internal
+#else
+	public
+#endif
+	class BMFontLoader
+	{
+		private static SpriteFont Load(BitmapFont data,
+			Func<string, TextureWithOffset> textureGetter)
+		{
 			if (data.Pages.Length > 1)
 			{
 				throw new NotSupportedException("For now only BMFonts with single texture are supported");
 			}
+
+			var texture = textureGetter(data.Pages[0].FileName);
+
 #if !XENKO
 			var glyphBounds = new List<Rectangle>();
 			var cropping = new List<Rectangle>();
@@ -30,8 +62,7 @@ namespace SpriteFontPlus
 			{
 				var bounds = character.Bounds;
 
-				//                bounds.Offset(texture.Bounds.Location);
-
+				bounds.Offset(texture.Offset);
 				glyphBounds.Add(bounds);
 				cropping.Add(new Rectangle(character.Offset.X, character.Offset.Y, bounds.Width, bounds.Height));
 
@@ -40,12 +71,10 @@ namespace SpriteFontPlus
 				kerning.Add(new Vector3(0, character.Bounds.Width, character.XAdvance - character.Bounds.Width));
 			}
 
-			var texture = textureGetter(data.Pages[0].FileName);
-
 			var constructorInfo = typeof(SpriteFont).GetTypeInfo().DeclaredConstructors.First();
 			var result = (SpriteFont)constructorInfo.Invoke(new object[]
 			{
-				texture, glyphBounds, cropping,
+				texture.Texture, glyphBounds, cropping,
 				chars, data.LineHeight, 0, kerning, ' '
 			});
 
@@ -82,5 +111,22 @@ namespace SpriteFontPlus
 #endif
 		}
 
+		public static SpriteFont LoadXml(string xml,
+			Func<string, TextureWithOffset> textureGetter)
+		{
+			var data = new BitmapFont();
+			data.LoadXml(xml);
+
+			return Load(data, textureGetter);
+		}
+
+		public static SpriteFont LoadText(string xml,
+			Func<string, TextureWithOffset> textureGetter)
+		{
+			var data = new BitmapFont();
+			data.LoadText(xml);
+
+			return Load(data, textureGetter);
+		}
 	}
 }
