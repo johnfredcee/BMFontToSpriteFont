@@ -1,10 +1,18 @@
 using System;
 using System.Collections.Generic;
+using Cyotek.Drawing.BitmapFont;
 using System.Linq;
 using System.Reflection;
-using Cyotek.Drawing.BitmapFont;
+
+#if !XENKO
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+#else
+using Xenko.Core.Mathematics;
+using Xenko.Graphics;
+using Xenko.Graphics.Font;
+using Texture2D = Xenko.Graphics.Texture;
+#endif
 
 namespace SpriteFontPlus
 {
@@ -39,10 +47,31 @@ namespace SpriteFontPlus
 #else
 	public
 #endif
-	class BMFontLoader
+	static class BMFontLoader
 	{
-		private static SpriteFont Load(BitmapFont data,
-			Func<string, TextureWithOffset> textureGetter)
+#if XENKO
+		private static FontSystem _fontSystem;
+
+		public static FontSystem FontSystem
+		{
+			get
+			{
+				if (_fontSystem != null)
+				{
+					return _fontSystem;
+				}
+
+				_fontSystem = new FontSystem();
+				FontSystem.Load(GraphicsDevice, null);
+
+				return _fontSystem;
+			}
+		}
+
+		public static GraphicsDevice GraphicsDevice;
+#endif
+
+		private static SpriteFont Load(BitmapFont data, Func<string, TextureWithOffset> textureGetter)
 		{
 			if (data.Pages.Length > 1)
 			{
@@ -80,7 +109,7 @@ namespace SpriteFontPlus
 
 			return result;
 #else
-			var textureRegion = textureRegionLoader(data.Pages[0].FileName);
+			var textureRegion = textureGetter(data.Pages[0].FileName);
 
 			var glyphs = new List<Glyph>();
 			foreach (var pair in data.Characters)
@@ -88,8 +117,8 @@ namespace SpriteFontPlus
 				var character = pair.Value;
 
 				var bounds = character.Bounds;
-				bounds.X += textureRegion.Bounds.X;
-				bounds.Y += textureRegion.Bounds.Y;
+				bounds.X += textureRegion.Offset.X;
+				bounds.Y += textureRegion.Offset.Y;
 				var glyph = new Glyph
 				{
 					Character = character.Char,
@@ -102,12 +131,12 @@ namespace SpriteFontPlus
 				glyphs.Add(glyph);
 			}
 
-			var textures = new List<Texture>
+			var textures = new List<Texture2D>
 			{
 				textureRegion.Texture
 			};
 
-			return DefaultAssets.FontSystem.NewStatic(data.LineHeight, glyphs, textures, 0, data.LineHeight);
+			return FontSystem.NewStatic(data.LineHeight, glyphs, textures, 0, data.LineHeight);
 #endif
 		}
 

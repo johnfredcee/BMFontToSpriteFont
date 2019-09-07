@@ -16,8 +16,15 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Xml;
+
+#if !XENKO
 using Point = Microsoft.Xna.Framework.Point;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
+#else
+using Point = Xenko.Core.Mathematics.Point;
+using Rectangle = Xenko.Core.Mathematics.Rectangle;
+#endif
+
 
 namespace Cyotek.Drawing.BitmapFont
 {
