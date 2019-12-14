@@ -157,5 +157,22 @@ namespace SpriteFontPlus
 
 			return Load(data, textureGetter);
 		}
+
+		public static SpriteFont Load(string str,
+			Func<string, TextureWithOffset> textureGetter)
+		{
+			var data = new BitmapFont();
+			if (str.StartsWith("<"))
+			{
+				// xml
+				data.LoadXml(str);
+			}
+			else
+			{
+				data.LoadText(str);
+			}
+
+			return Load(data, textureGetter);
+		}
 	}
 }
