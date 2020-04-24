@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net45</TargetFrameworks>
+    <PackageId>Bladecoder.BMFontToSpriteFont</PackageId>
+    <Authors>BMFontToSpriteFontPlusTeam</Authors>
+    <Product>BMFontToSpriteFont</Product>
+    <Description>Library extending functionality of the SpriteFont.</Description>
+    <PackageProjectUrl>https://github.com/bladecoder/BMFontToSpriteFont</PackageProjectUrl>
+    <AssemblyName>BMFontToSpriteFont</AssemblyName>
+    <RootNamespace>BMFontToSpriteFont</RootNamespace>
+    <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DefineConstants>$(DefineConstants);STBSHARP_INTERNAL;MONOGAME</DefineConstants>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.Portable" Version="3.7.1.189" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+</Project>
