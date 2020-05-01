@@ -17,12 +17,12 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
-#if !XENKO
+#if !STRIDE
 using Point = Microsoft.Xna.Framework.Point;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 #else
-using Point = Xenko.Core.Mathematics.Point;
-using Rectangle = Xenko.Core.Mathematics.Rectangle;
+using Point = Stride.Core.Mathematics.Point;
+using Rectangle = Stride.Core.Mathematics.Rectangle;
 #endif
 
 

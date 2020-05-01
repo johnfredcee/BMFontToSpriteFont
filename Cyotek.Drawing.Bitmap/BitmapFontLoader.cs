@@ -10,10 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-#if !XENKO
+#if !STRIDE
 using Microsoft.Xna.Framework;
 #else
-using Xenko.Core.Mathematics;
+using Stride.Core.Mathematics;
 #endif
 
 namespace Cyotek.Drawing.BitmapFont

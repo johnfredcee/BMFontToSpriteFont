@@ -6,10 +6,10 @@
  * Licensed under the MIT License. See license.txt for the full text.
  */
 
-#if !XENKO
+#if !STRIDE
 using Microsoft.Xna.Framework;
 #else
-using Xenko.Core.Mathematics;
+using Stride.Core.Mathematics;
 #endif
 
 namespace Cyotek.Drawing.BitmapFont

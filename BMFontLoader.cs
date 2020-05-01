@@ -4,14 +4,14 @@ using Cyotek.Drawing.BitmapFont;
 using System.Linq;
 using System.Reflection;
 
-#if !XENKO
+#if !STRIDE
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 #else
-using Xenko.Core.Mathematics;
-using Xenko.Graphics;
-using Xenko.Graphics.Font;
-using Texture2D = Xenko.Graphics.Texture;
+using Stride.Core.Mathematics;
+using Stride.Graphics;
+using Stride.Graphics.Font;
+using Texture2D = Stride.Graphics.Texture;
 #endif
 
 namespace SpriteFontPlus
@@ -49,7 +49,7 @@ namespace SpriteFontPlus
 #endif
 	static class BMFontLoader
 	{
-#if XENKO
+#if STRIDE
 		private static FontSystem _fontSystem;
 
 		public static FontSystem FontSystem
@@ -80,7 +80,7 @@ namespace SpriteFontPlus
 
 			var texture = textureGetter(data.Pages[0].FileName);
 
-#if !XENKO
+#if !STRIDE
 			var glyphBounds = new List<Rectangle>();
 			var cropping = new List<Rectangle>();
 			var chars = new List<char>();
