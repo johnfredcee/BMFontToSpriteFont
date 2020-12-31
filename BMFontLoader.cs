@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Cyotek.Drawing.BitmapFont;
 using System.Linq;
 using System.Reflection;
+using Cyotek.Drawing.BitmapFont;
 
 #if !STRIDE
 using Microsoft.Xna.Framework;
@@ -89,15 +89,15 @@ namespace SpriteFontPlus
 			var characters = data.Characters.Values.OrderBy(c => c.Char);
 			foreach (var character in characters)
 			{
-				var bounds = character.Bounds;
+				var bounds = new Rectangle(character.X, character.Y, character.Width, character.Height);
 
 				bounds.Offset(texture.Offset);
 				glyphBounds.Add(bounds);
-				cropping.Add(new Rectangle(character.Offset.X, character.Offset.Y, bounds.Width, bounds.Height));
+				cropping.Add(new Rectangle(character.XOffset, character.YOffset, bounds.Width, bounds.Height));
 
 				chars.Add(character.Char);
 
-				kerning.Add(new Vector3(0, character.Bounds.Width, character.XAdvance - character.Bounds.Width));
+				kerning.Add(new Vector3(0, character.X, character.XAdvance - character.X));
 			}
 
 			var constructorInfo = typeof(SpriteFont).GetTypeInfo().DeclaredConstructors.First();
@@ -116,14 +116,14 @@ namespace SpriteFontPlus
 			{
 				var character = pair.Value;
 
-				var bounds = character.Bounds;
+				var bounds = new Rectangle(character.X, character.Y, character.Width, character.Height);
 				bounds.X += textureRegion.Offset.X;
 				bounds.Y += textureRegion.Offset.Y;
 				var glyph = new Glyph
 				{
 					Character = character.Char,
 					BitmapIndex = 0,
-					Offset = new Vector2(character.Offset.X, character.Offset.Y),
+					Offset = new Vector2(character.XOffset, character.YOffset),
 					Subrect = bounds,
 					XAdvance = character.XAdvance
 				};
