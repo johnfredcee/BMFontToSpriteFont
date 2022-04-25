@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
     <PackageId>Bladecoder.BMFontToSpriteFont</PackageId>
     <Authors>BMFontToSpriteFontPlusTeam</Authors>
     <Product>BMFontToSpriteFont</Product>
@@ -24,7 +24,7 @@
   </PropertyGroup>
   <ItemGroup>
       <ProjectReference Include="..\..\MonoGame.Framework\MonoGame.Framework.WindowsDX.csproj" />
-	  <ProjectReference Include="..\..\Libraries\StbimageSharp\src\StbImageSharp.csproj" />
+	  <ProjectReference Include="..\..\ThirdParty\StbimageSharp\src\StbImageSharp.csproj" />
   </ItemGroup>
 
 </Project>
