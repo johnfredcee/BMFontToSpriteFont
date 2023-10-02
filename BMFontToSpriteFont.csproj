@@ -24,7 +24,7 @@
   </PropertyGroup>
   <ItemGroup>
       <ProjectReference Include="..\..\MonoGame.Framework\MonoGame.Framework.WindowsDX.csproj" />
-	  <ProjectReference Include="..\..\Dependencies\StbimageSharp\src\StbImageSharp.csproj" />
+	  <ProjectReference Include="..\..\ThirdParty\StbImageSharp\src\StbImageSharp.csproj" />
   </ItemGroup>
 
 </Project>
