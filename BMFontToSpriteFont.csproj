@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows</TargetFrameworks>
     <PackageId>Bladecoder.BMFontToSpriteFont</PackageId>
     <Authors>BMFontToSpriteFontPlusTeam</Authors>
     <Product>BMFontToSpriteFont</Product>
